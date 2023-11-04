@@ -6,7 +6,7 @@ const NavBar = () => {
   const menus = (
     <>
       <NavLink to={"/"}>Home</NavLink>
-      <NavLink>Add Blog</NavLink>
+      <NavLink to={"/addblog"}>Add Blog</NavLink>
       <NavLink>All Blogs</NavLink>
       <NavLink>Featured Blogs</NavLink>
       <NavLink>Wishlist</NavLink>
