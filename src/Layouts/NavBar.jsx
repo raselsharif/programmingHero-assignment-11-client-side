@@ -1,9 +1,22 @@
 import { Avatar, Button, Dropdown, Navbar } from "flowbite-react";
 import logo from "/logo.png";
 import { Link, NavLink } from "react-router-dom";
+import { useContext } from "react";
+import { AuthContext } from "../Providers/AuthProviders";
 
 const NavBar = () => {
-  const user = false;
+  const { user, firebaseLogOut } = useContext(AuthContext);
+  console.log(user);
+  const logOut = () => {
+    console.log("logout");
+    firebaseLogOut()
+      .then(() => {
+        alert("sign out successfully");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   const menus = (
     <>
       <NavLink to={"/"}>Home</NavLink>
@@ -35,22 +48,22 @@ const NavBar = () => {
                 label={
                   <Avatar
                     alt="User settings"
-                    img="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
+                    img={user?.photoURL ? user?.photoURL : "/profile.jpg"}
                     rounded
+                    bordered
                   />
                 }
               >
                 <Dropdown.Header>
-                  <span className="block text-sm">Bonnie Green</span>
+                  <span className="block text-sm mb-2 text-[#155e75]">
+                    {user?.displayName ? user?.displayName : "Name not set"}
+                  </span>
                   <span className="block truncate text-sm font-medium">
-                    name@flowbite.com
+                    {user?.email}
                   </span>
                 </Dropdown.Header>
-                <Dropdown.Item>Dashboard</Dropdown.Item>
-                <Dropdown.Item>Settings</Dropdown.Item>
-                <Dropdown.Item>Earnings</Dropdown.Item>
                 <Dropdown.Divider />
-                <Dropdown.Item>Sign out</Dropdown.Item>
+                <Dropdown.Item onClick={logOut}>Log Out</Dropdown.Item>
               </Dropdown>
               <Navbar.Toggle />
             </>
