@@ -1,5 +1,6 @@
-import { Card } from "flowbite-react";
+import { Button, Card } from "flowbite-react";
 import img from "/banner01.jpg";
+import { Link } from "react-router-dom";
 
 const BlogCard = () => {
   return (
@@ -15,6 +16,15 @@ const BlogCard = () => {
         Here are the biggest enterprise technology acquisitions of 2021 so far,
         in reverse chronological order.
       </p>
+      <div>
+        <p>Category</p>
+      </div>
+      <div className="flex justify-between">
+        <Link to={"/"}>
+          <Button>Details</Button>
+        </Link>
+        <Button>Add to Wishlist</Button>
+      </div>
     </Card>
   );
 };
