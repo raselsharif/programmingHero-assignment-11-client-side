@@ -1,11 +1,13 @@
 import { Button, Card, Label, TextInput, Toast } from "flowbite-react";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Providers/AuthProviders";
 import { FcGoogle } from "react-icons/fc";
 import { toast } from "react-hot-toast";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 const Login = () => {
+  const [show, setShow] = useState(false);
   const goTo = useNavigate();
   const { emailPassLogin, googleLogin } = useContext(AuthContext);
   const handleLogin = (e) => {
@@ -59,19 +61,25 @@ const Login = () => {
               type="email"
               name="email"
               placeholder="Type your mail"
-              //   required
+              required
             />
           </div>
-          <div>
+          <div className="relative">
             <div className="mb-2 block">
-              <Label value="Your password" />
+              <Label value="Password" />
             </div>
             <TextInput
-              type="password"
+              type={show ? "text" : "password"}
               name="password"
               placeholder="Password"
               // required
             />
+            <div
+              onClick={() => setShow(!show)}
+              className="absolute right-4 top-11 text-xl text-[#155e75] cursor-pointer"
+            >
+              {show ? <FaEyeSlash /> : <FaEye />}
+            </div>
           </div>
           <div className="flex items-center gap-2"></div>
           <Button type="submit">Login</Button>

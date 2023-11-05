@@ -15,7 +15,7 @@ const RecentBlog = () => {
   if (isPending) {
     return <SkeletonLoading></SkeletonLoading>;
   }
-  console.log(data);
+  // console.log(data);
   return (
     <div className="my-10">
       <h2 className="text-center border-b-2 pb-2 text-3xl">Recent Blogs</h2>

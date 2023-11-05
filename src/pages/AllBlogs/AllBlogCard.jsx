@@ -2,12 +2,35 @@ import { Button, Card } from "flowbite-react";
 import img from "/banner01.jpg";
 import { Link } from "react-router-dom";
 import SkeletonLoading from "../Loadings/SkeletonLoading";
+import axios from "axios";
+import toast from "react-hot-toast";
 
 const AllBlogCard = ({ blog, blogsPending }) => {
   if (blogsPending) {
     return <SkeletonLoading />;
   }
   const { title, _id, short_desc, category, image } = blog;
+  const handleWishlist = () => {
+    console.log("wishlist");
+    const wishlistBlog = {
+      title,
+      id: _id,
+      short_desc,
+      image,
+      category,
+    };
+    console.log(wishlistBlog);
+    axios
+      .post("http://localhost:5000/v1/post-wishlist", wishlistBlog)
+      .then((res) => {
+        console.log(res.data);
+        toast.success("Wishlist Added Successfully!");
+      })
+      .catch((err) => {
+        console.log(err);
+        toast.error("Wishlist not added!");
+      });
+  };
   return (
     <Card
       className="max-w-full"
@@ -27,7 +50,7 @@ const AllBlogCard = ({ blog, blogsPending }) => {
         <Link to={`/blog-details/${_id}`}>
           <Button>Details</Button>
         </Link>
-        <Button>Add to Wishlist</Button>
+        <Button onClick={handleWishlist}>Add to Wishlist</Button>
       </div>
     </Card>
   );

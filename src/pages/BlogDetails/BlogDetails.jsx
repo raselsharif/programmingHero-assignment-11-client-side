@@ -6,20 +6,6 @@ import axios from "axios";
 import { useLoaderData } from "react-router-dom";
 
 const BlogDetails = () => {
-  // const { isPending, data, error } = useQuery({
-  //   queryKey: ["blog-details"],
-  //   queryFn: () => {
-  //     return axios
-  //       .get(`http://localhost:5000/v1/blog-details/${_id}`)
-  //       .then((res) => {
-  //         console.log(res.data);
-  //       })
-  //       .catch((error) => {
-  //         console.log(error);
-  //       });
-  //   },
-  // });
-  // console.log(data);
   const loadedBlog = useLoaderData();
   // console.log(loadedBlog);
   const { title, _id, short_desc, category, long_desc, image } = loadedBlog;

@@ -1,10 +1,12 @@
 import { Button, Card, Label, TextInput } from "flowbite-react";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../Providers/AuthProviders";
 import toast from "react-hot-toast";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 const Register = () => {
   const { emailPassResister } = useContext(AuthContext);
+  const [show, setShow] = useState(false);
   const handleRegister = (e) => {
     e.preventDefault();
 
@@ -15,7 +17,15 @@ const Register = () => {
 
     // console.log(name, email, password, image);
 
+    const passValid =
+      /^(?=.*[A-Z])(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-])(?=.*\d).{6,}$/;
+    if (!passValid.test(password)) {
+      toast.error(
+        "Your Password at least 6 character, one upper case, a special character and number"
+      );
+    }
     const toastId = toast.loading("User Creating...");
+
     emailPassResister(email, password)
       .then((res) => {
         console.log(res.user);
@@ -44,7 +54,7 @@ const Register = () => {
               type="text"
               name="name"
               placeholder="Type your Name"
-              //   required
+              required
             />
           </div>
           <div>
@@ -66,19 +76,25 @@ const Register = () => {
               type="email"
               name="email"
               placeholder="Type your mail"
-              //   required
+              required
             />
           </div>
-          <div>
+          <div className="relative">
             <div className="mb-2 block">
               <Label value="Password" />
             </div>
             <TextInput
-              type="password"
+              type={show ? "text" : "password"}
               name="password"
               placeholder="Password"
               // required
             />
+            <div
+              onClick={() => setShow(!show)}
+              className="absolute right-4 top-11 text-xl text-[#155e75] cursor-pointer"
+            >
+              {show ? <FaEyeSlash /> : <FaEye />}
+            </div>
           </div>
           <div className="flex items-center gap-2"></div>
           <Button type="submit">Register</Button>
