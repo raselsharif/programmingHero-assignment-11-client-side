@@ -1,23 +1,44 @@
-import { Button, Card, Label, TextInput } from "flowbite-react";
+import { Button, Card, Label, TextInput, Toast } from "flowbite-react";
 import { useContext } from "react";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Providers/AuthProviders";
+import { FcGoogle } from "react-icons/fc";
+import { toast } from "react-hot-toast";
 
 const Login = () => {
   const goTo = useNavigate();
-  const { emailPassLogin } = useContext(AuthContext);
+  const { emailPassLogin, googleLogin } = useContext(AuthContext);
   const handleLogin = (e) => {
     e.preventDefault();
     const email = e.target.email.value;
     const password = e.target.password.value;
     console.log(email, password);
+    const toastId = toast.loading("Logging..");
     emailPassLogin(email, password)
       .then((res) => {
         console.log(res.user);
+        toast.success("Logged in successfully", { id: toastId });
         goTo("/");
       })
       .catch((err) => {
         console.log(err);
+        toast.error("Email/Password invalid", { id: toastId });
+      });
+  };
+  const googleLoginHandler = () => {
+    console.log("google");
+    const toastId = toast.loading("Logging..");
+    googleLogin()
+      .then((res) => {
+        // console.log(res.user);
+
+        toast.success("Logged in successfully", { id: toastId });
+
+        goTo("/");
+      })
+      .catch((err) => {
+        // console.log(err);
+        toast.error("Email/Password invalid", { id: toastId });
       });
   };
   return (
@@ -64,6 +85,13 @@ const Login = () => {
             Register
           </Link>
         </p>
+        <Button
+          onClick={googleLoginHandler}
+          className="border border-[#155E75]"
+          color="none"
+        >
+          <FcGoogle className="text-xl mr-2" /> Login With Google
+        </Button>
       </Card>
     </div>
   );

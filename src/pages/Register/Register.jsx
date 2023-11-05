@@ -2,6 +2,7 @@ import { Button, Card, Label, TextInput } from "flowbite-react";
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../Providers/AuthProviders";
+import toast from "react-hot-toast";
 const Register = () => {
   const { emailPassResister } = useContext(AuthContext);
   const handleRegister = (e) => {
@@ -12,14 +13,17 @@ const Register = () => {
     const email = e.target.email.value;
     const password = e.target.password.value;
 
-    console.log(name, email, password, image);
+    // console.log(name, email, password, image);
 
+    const toastId = toast.loading("User Creating...");
     emailPassResister(email, password)
       .then((res) => {
         console.log(res.user);
+        toast.success("User Created Successfully!", { id: toastId });
       })
       .catch((err) => {
         console.log(err);
+        toast.error("Did something wrong!", { id: toastId });
       });
   };
   return (
