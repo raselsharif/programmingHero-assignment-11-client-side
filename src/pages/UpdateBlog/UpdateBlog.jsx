@@ -1,15 +1,6 @@
-import axios from "axios";
-import { Button, Card, Label, Select, TextInput } from "flowbite-react";
-import { useEffect, useState } from "react";
+import { Button, Card, Label, TextInput } from "flowbite-react";
 
-const AddBlog = () => {
-  // get categories
-  const [categories, setCategories] = useState([]);
-  useEffect(() => {
-    axios("http://localhost:5000/v1/categories").then((res) => {
-      setCategories(res.data);
-    });
-  }, []);
+const UpdateBlog = () => {
   const formHandler = (e) => {
     e.preventDefault();
     const blogInfo = {
@@ -20,14 +11,11 @@ const AddBlog = () => {
       image: e.target.image.value,
     };
     console.log(blogInfo);
-    axios.post("http://localhost:5000/v1/post-blog", blogInfo).then((res) => {
-      console.log(res.data);
-    });
   };
   return (
     <div className="flex flex-col items-center max-w-2xl mx-auto my-10">
       <h2 className="text-2xl mb-8 border-b-2 pb-3 font-semibold mt-4">
-        Add Your Blog
+        Update Your Blog
       </h2>
       <div>
         <Card className="my-4">
@@ -65,15 +53,16 @@ const AddBlog = () => {
                 //  required
               />
             </div>
-            <div className="max-w-md">
+            <div>
               <div className="mb-2 block">
-                <Label value="Select Your Category" />
+                <Label value="Category" />
               </div>
-              <Select name="category" required>
-                {categories?.map((category) => (
-                  <option key={category._id}>{category.category}</option>
-                ))}
-              </Select>
+              <TextInput
+                name="category"
+                type="text"
+                placeholder="Write Short description.."
+                //  required
+              />
             </div>
             <div>
               <div className="mb-2 block">
@@ -86,7 +75,7 @@ const AddBlog = () => {
                 //  required
               />
             </div>
-            <Button type="submit">Add Blog</Button>
+            <Button type="submit">Update Blog</Button>
           </form>
         </Card>
       </div>
@@ -94,4 +83,4 @@ const AddBlog = () => {
   );
 };
 
-export default AddBlog;
+export default UpdateBlog;

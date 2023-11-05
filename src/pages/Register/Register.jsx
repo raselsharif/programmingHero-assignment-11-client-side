@@ -24,10 +24,10 @@ const Register = () => {
   };
   return (
     <div className="flex flex-col items-center justify-center min-h-screen max-w-[1200px] mx-auto">
-      <h2 className="my-4 text-2xl font-semibold bg-[#155e75] w-full py-4 text-white text-center">
+      <h2 className="my-4 text-2xl font-semibold bg-[#155e75] w-full py-4 text-white text-center rounded-lg">
         Welcome to RS Blog
       </h2>
-      <Card className="max-w-sm">
+      <Card className="w-80 border border-[#155e75]">
         <h3 className="text-[#155e75] w-full py-2 text-center  font-semibold rounded-lg text-2xl border-b-2">
           Pls! Register
         </h3>
@@ -81,7 +81,10 @@ const Register = () => {
         </form>
         <p>
           Have an account?{" "}
-          <Link className="text-[#155e75]" to={"/login"}>
+          <Link
+            className="text-[#155e75] font-semibold hover:text-blue-500"
+            to={"/login"}
+          >
             Login
           </Link>
         </p>

@@ -19,22 +19,53 @@ const NavBar = () => {
   };
   const menus = (
     <>
-      <NavLink to={"/"}>Home</NavLink>
-      <NavLink to={"/addblog"}>Add Blog</NavLink>
-      <NavLink to={"/allblogs"}>All Blogs</NavLink>
-      <NavLink>Featured Blogs</NavLink>
-      <NavLink>Wishlist</NavLink>
+      <NavLink
+        to="/"
+        className={({ isActive }) =>
+          isActive ? "border-b-2 border-[#155e75] pb-1" : "pb-1"
+        }
+      >
+        Home
+      </NavLink>
+      <NavLink
+        to="/add-blog"
+        className={({ isActive }) =>
+          isActive ? "border-b-2 border-[#155e75] pb-1" : "pb-1"
+        }
+      >
+        Add Blog
+      </NavLink>
+      <NavLink
+        to="/all-blogs"
+        className={({ isActive }) =>
+          isActive ? "border-b-2 border-[#155e75] pb-1" : "pb-1"
+        }
+      >
+        All Blogs
+      </NavLink>
+      <NavLink
+        to="/features"
+        className={({ isActive }) =>
+          isActive ? "border-b-2 border-[#155e75] pb-1" : "pb-1"
+        }
+      >
+        Featured Blogs
+      </NavLink>
+      <NavLink
+        to="/wishlist"
+        className={({ isActive }) =>
+          isActive ? "border-b-2 border-[#155e75] pb-1" : "pb-1"
+        }
+      >
+        Wishlist
+      </NavLink>
     </>
   );
   return (
     <div>
-      <Navbar fluid rounded>
+      <Navbar fluid rounded className="shadow-md shadow-[#60747a] py-4">
         <Link to={"/"} className="flex">
-          <img
-            src={logo}
-            className="mr-3 h-6 sm:h-9"
-            alt="Flowbite React Logo"
-          />
+          <img src={logo} className="mr-3 h-6 sm:h-9" alt="Logo" />
           <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
             RS Tech
           </span>

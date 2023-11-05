@@ -2,7 +2,7 @@ import { Footer } from "flowbite-react";
 import logo from "/logo.png";
 const MyFooter = () => {
   return (
-    <Footer container>
+    <Footer container className="shadow-md shadow-[#60747a] ">
       <div className="w-full text-center">
         <div className="w-full justify-between sm:flex sm:items-center sm:justify-between">
           <Footer.Brand href="#" src={logo} alt="Logo" name="RS Tech" />
