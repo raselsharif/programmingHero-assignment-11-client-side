@@ -1,15 +1,11 @@
 import axios from "axios";
 import { Button, Card, Label, Select, TextInput } from "flowbite-react";
-import { useEffect, useState } from "react";
+import useCategoriesApi from "../../hooks/useCategoriesApi";
+import SkeletonLoading from "../Loadings/SkeletonLoading";
 
 const AddBlog = () => {
-  // get categories
-  const [categories, setCategories] = useState([]);
-  useEffect(() => {
-    axios("http://localhost:5000/v1/categories").then((res) => {
-      setCategories(res.data);
-    });
-  }, []);
+  const { isPending, error, data } = useCategoriesApi();
+  // console.log(data);
   const formHandler = (e) => {
     e.preventDefault();
     const blogInfo = {
@@ -24,6 +20,12 @@ const AddBlog = () => {
       console.log(res.data);
     });
   };
+  if (isPending) {
+    return <SkeletonLoading />;
+  }
+  if (error) {
+    return <p>data not loaded</p>;
+  }
   return (
     <div className="flex flex-col items-center max-w-2xl mx-auto my-10">
       <h2 className="text-2xl mb-8 border-b-2 pb-3 font-semibold mt-4">
@@ -70,7 +72,7 @@ const AddBlog = () => {
                 <Label value="Select Your Category" />
               </div>
               <Select name="category" required>
-                {categories?.map((category) => (
+                {data?.map((category) => (
                   <option key={category._id}>{category.category}</option>
                 ))}
               </Select>
