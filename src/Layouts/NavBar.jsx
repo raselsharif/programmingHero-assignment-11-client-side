@@ -96,7 +96,6 @@ const NavBar = () => {
                 <Dropdown.Divider />
                 <Dropdown.Item onClick={logOut}>Log Out</Dropdown.Item>
               </Dropdown>
-              <Navbar.Toggle />
             </>
           ) : (
             <Link to={"/login"}>
@@ -104,7 +103,7 @@ const NavBar = () => {
             </Link>
           )}
         </div>
-
+        <Navbar.Toggle />
         <Navbar.Collapse>{menus}</Navbar.Collapse>
       </Navbar>
     </div>
