@@ -24,7 +24,7 @@ const AllBlogCard = ({ blog, blogsPending }) => {
         <p>{category}</p>
       </div>
       <div className="flex justify-between">
-        <Link to={`/blogDetails/${_id}`}>
+        <Link to={`/blog-details/${_id}`}>
           <Button>Details</Button>
         </Link>
         <Button>Add to Wishlist</Button>
