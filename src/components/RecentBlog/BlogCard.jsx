@@ -20,7 +20,7 @@ const BlogCard = () => {
         <p>Category</p>
       </div>
       <div className="flex justify-between">
-        <Link to={"/"}>
+        <Link to={"/blog-details"}>
           <Button>Details</Button>
         </Link>
         <Button>Add to Wishlist</Button>
