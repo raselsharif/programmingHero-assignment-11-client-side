@@ -4,12 +4,59 @@ import BlogComments from "./BlogComments";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useLoaderData } from "react-router-dom";
-
+import toast from "react-hot-toast";
+import { useContext } from "react";
+import { AuthContext } from "../../Providers/AuthProviders";
+import SkeletonLoading from "../Loadings/SkeletonLoading";
 const BlogDetails = () => {
+  const { user } = useContext(AuthContext);
   const loadedBlog = useLoaderData();
-  // console.log(loadedBlog);
-  const { title, _id, short_desc, category, long_desc, image } = loadedBlog;
-
+  console.log(loadedBlog);
+  const { title, _id, short_desc, category, long_desc, image, user_email } =
+    loadedBlog;
+  const commentHandler = (e) => {
+    e.preventDefault();
+    console.log(e.target.comment.value);
+    const comment = {
+      comment: e.target.comment.value,
+      id: _id,
+      user_name: user?.displayName,
+      user_img: user?.photoURL,
+      user_email: user?.email,
+    };
+    const toastId = toast.loading("Commenting....");
+    axios
+      .post("http://localhost:5000/v1/post-comment", comment)
+      .then((res) => {
+        console.log(res);
+        toast.success("Comment send successfully!", { id: toastId });
+      })
+      .catch((err) => {
+        console.log(err);
+        toast.error("Comment not send!", { id: toastId });
+      });
+  };
+  const { isPending, error, data } = useQuery({
+    queryKey: ["comments", _id],
+    queryFn: async () => {
+      try {
+        const res = await axios.get(
+          `http://localhost:5000/v1/comment-by-post/${_id}`
+        );
+        console.log(res.data);
+        return res;
+      } catch (err) {
+        console.log(err);
+      }
+    },
+  });
+  if (isPending) {
+    return <SkeletonLoading />;
+  }
+  if (error) {
+    return <p>Data not found</p>;
+  }
+  console.log(data?.data);
   return (
     <div className="my-10">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 border p-4 rounded-xl">
@@ -30,34 +77,46 @@ const BlogDetails = () => {
           <p className="font-normal text-gray-700 dark:text-gray-400">
             {long_desc}
           </p>
+          <p>{category}</p>
         </div>
       </div>
 
       <div className="mt-6 max-w-xl">
-        <form>
-          <Label
-            value="Sent Your Feedback to us..."
-            className="font-semibold text-lg"
-          ></Label>
-          <Textarea
-            className="w-full my-4"
-            placeholder="Type Your Feedback....."
-            required
-            rows={8}
-          />
-          <Button type="submit">Post</Button>
-        </form>
+        {user_email == user?.email ? (
+          <h3 className="text-center font-semibold text-2xl text-red-400 mt-8">
+            Owner can not comment on own blog
+          </h3>
+        ) : (
+          <form onSubmit={commentHandler}>
+            <Label
+              value="Sent Your Feedback to us..."
+              className="font-semibold text-lg"
+            ></Label>
+            <Textarea
+              name="comment"
+              className="w-full my-4"
+              placeholder="Type Your Feedback....."
+              required
+              rows={8}
+            />
+            <Button type="submit">Post</Button>
+          </form>
+        )}
       </div>
       <div className="mt-8 ">
         <h2 className="font-semibold text-xl text-center border-b border-[#155e75] pb-3 mb-4">
           All Comments
         </h2>
         <div>
-          <BlogComments></BlogComments>
-          <BlogComments></BlogComments>
-          <BlogComments></BlogComments>
-          <BlogComments></BlogComments>
-          <BlogComments></BlogComments>
+          {data?.data == 0 ? (
+            <h3 className="text-center font-semibold text-3xl text-gray-400 mt-8">
+              No Comments
+            </h3>
+          ) : (
+            data?.data?.map((comment) => (
+              <BlogComments key={comment._id} comment={comment} />
+            ))
+          )}
         </div>
       </div>
     </div>
