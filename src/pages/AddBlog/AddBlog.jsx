@@ -2,8 +2,20 @@ import axios from "axios";
 import { Button, Card, Label, Select, TextInput } from "flowbite-react";
 import useCategoriesApi from "../../hooks/useCategoriesApi";
 import SkeletonLoading from "../Loadings/SkeletonLoading";
+import { useContext } from "react";
+import { AuthContext } from "../../Providers/AuthProviders";
 
 const AddBlog = () => {
+  const { user } = useContext(AuthContext);
+  const currentTime = Date.now();
+  const currentDate = new Date(currentTime);
+  const day = currentDate.getDate();
+  const month = currentDate.toLocaleString("en-US", { month: "short" });
+  const year = currentDate.getFullYear();
+  const todayDate = `${day}-${month}-${year}`;
+  // console.log(todayDate);
+  // console.log(currentTime);
+  // console.log(user?.email);
   const { isPending, error, data } = useCategoriesApi();
   // console.log(data);
   const formHandler = (e) => {
@@ -14,6 +26,11 @@ const AddBlog = () => {
       long_desc: e.target.long_desc.value,
       category: e.target.category.value,
       image: e.target.image.value,
+      user_email: user?.email,
+      currentTime,
+      todayDate,
+      user_img: user.photoURL,
+      user_name: user.displayName,
     };
     console.log(blogInfo);
     axios.post("http://localhost:5000/v1/post-blog", blogInfo).then((res) => {

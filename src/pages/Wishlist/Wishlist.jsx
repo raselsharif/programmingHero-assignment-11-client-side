@@ -30,7 +30,7 @@ const Wishlist = () => {
       <h2 className="my-4 text-2xl font-semibold bg-[#155e75] w-full py-4 text-white text-center rounded-lg">
         Your Wishlist
       </h2>
-      <div>
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
         {data?.data?.map((wishlist) => (
           <WishlistCard key={wishlist._id} wishlist={wishlist} />
         ))}

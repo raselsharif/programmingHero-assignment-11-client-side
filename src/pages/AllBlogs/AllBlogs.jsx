@@ -4,10 +4,23 @@ import useCategoriesApi from "../../hooks/useCategoriesApi";
 import SkeletonLoading from "../Loadings/SkeletonLoading";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import { useState } from "react";
 
 const AllBlogs = () => {
+  const [searchCategory, setSearchCategory] = useState("");
+  const [searchTitle, setSearchTitle] = useState("");
+  console.log(searchTitle);
+  console.log(searchCategory);
+  const searchByCategory = (e) => {
+    // console.log("change selected option");
+    setSearchCategory(e.target.value);
+  };
+  const searchByTitle = (e) => {
+    e.preventDefault();
+    setSearchTitle(e.target.title.value);
+  };
   // all blogs
-  const { data, isPending, error } = useCategoriesApi();
+  const { isPending, error, data } = useCategoriesApi();
   const {
     isPending: blogsPending,
     error: blogsError,
@@ -20,9 +33,9 @@ const AllBlogs = () => {
   });
   // console.log(blogsData);
   // console.log(data?.data);
-  // if (blogsPending) {
-  //   return <SkeletonLoading></SkeletonLoading>;
-  // }
+  if (blogsPending) {
+    return <SkeletonLoading></SkeletonLoading>;
+  }
   // if (blogsError) {
   //   return <p>data not found</p>;
   // }
@@ -40,7 +53,7 @@ const AllBlogs = () => {
       </h2>
       <div className="flex justify-between mb-4 border-b border-[#155E75] pb-2">
         <div>
-          <Select className="cursor-pointer">
+          <Select onChange={searchByCategory} className="cursor-pointer">
             <option className="my-1" value="">
               Select Category
             </option>
@@ -51,10 +64,12 @@ const AllBlogs = () => {
             ))}
           </Select>
         </div>
-        <div className="flex">
-          <TextInput placeholder="Search by Title"></TextInput>
-          <Button>Search</Button>
-        </div>
+        <form onSubmit={searchByTitle}>
+          <div className="flex">
+            <TextInput name="title" placeholder="Search by Title"></TextInput>
+            <Button type="submit">Search</Button>
+          </div>
+        </form>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
