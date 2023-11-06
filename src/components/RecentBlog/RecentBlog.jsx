@@ -7,7 +7,9 @@ const RecentBlog = () => {
   const { isPending, error, data } = useQuery({
     queryKey: ["recent-blog"],
     queryFn: async () => {
-      const res = await axios.get("http://localhost:5000/v1/all-blogs");
+      const res = await axios.get(
+        "http://localhost:5000/v1/all-blogs?sortDate=currentTime&sortOrder=desc&limit=6"
+      );
       return res;
       // console.log(res.data);
     },
@@ -15,7 +17,7 @@ const RecentBlog = () => {
   if (isPending) {
     return <SkeletonLoading></SkeletonLoading>;
   }
-  // console.log(data);
+  console.log(data.data);
   return (
     <div className="my-10">
       <h2 className="text-center border-b-2 pb-2 text-3xl">Recent Blogs</h2>

@@ -1,10 +1,36 @@
-import { Button, Card } from "flowbite-react";
+import { Button } from "flowbite-react";
 import img from "/banner01.jpg";
 import { Link } from "react-router-dom";
+import axios from "axios";
+import toast from "react-hot-toast";
+import { useContext } from "react";
+import { AuthContext } from "../../Providers/AuthProviders";
 
 const BlogCard = ({ blogs }) => {
+  const { user } = useContext(AuthContext);
   const { title, _id, short_desc, category, image } = blogs;
-
+  const handleWishlist = () => {
+    console.log("wishlist");
+    const wishlistBlog = {
+      title,
+      id: _id,
+      short_desc,
+      image,
+      category,
+      user_email: user.email,
+    };
+    console.log(wishlistBlog);
+    axios
+      .post("http://localhost:5000/v1/post-wishlist", wishlistBlog)
+      .then((res) => {
+        // console.log(res.data);
+        toast.success("Wishlist Added Successfully!");
+      })
+      .catch((err) => {
+        // console.log(err);
+        toast.error("Wishlist not added!");
+      });
+  };
   return (
     <div className="max-w-full flex flex-col shadow-sm shadow-[#0E7490] pb-6 rounded-xl">
       <img
@@ -26,7 +52,7 @@ const BlogCard = ({ blogs }) => {
           <Link to={`/blog-details/${_id}`}>
             <Button>Details</Button>
           </Link>
-          <Button>Add to Wishlist</Button>
+          <Button onClick={handleWishlist}>Add to Wishlist</Button>
         </div>
       </div>
     </div>

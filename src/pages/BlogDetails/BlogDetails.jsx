@@ -11,7 +11,7 @@ import SkeletonLoading from "../Loadings/SkeletonLoading";
 const BlogDetails = () => {
   const { user } = useContext(AuthContext);
   const loadedBlog = useLoaderData();
-  console.log(loadedBlog);
+  // console.log(loadedBlog);
   const { title, _id, short_desc, category, long_desc, image, user_email } =
     loadedBlog;
   const commentHandler = (e) => {
@@ -28,11 +28,11 @@ const BlogDetails = () => {
     axios
       .post("http://localhost:5000/v1/post-comment", comment)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         toast.success("Comment send successfully!", { id: toastId });
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
         toast.error("Comment not send!", { id: toastId });
       });
   };
@@ -43,10 +43,10 @@ const BlogDetails = () => {
         const res = await axios.get(
           `http://localhost:5000/v1/comment-by-post/${_id}`
         );
-        console.log(res.data);
+        // console.log(res.data);
         return res;
       } catch (err) {
-        console.log(err);
+        // console.log(err);
       }
     },
   });
@@ -56,7 +56,7 @@ const BlogDetails = () => {
   if (error) {
     return <p>Data not found</p>;
   }
-  console.log(data?.data);
+  // console.log(data?.data);
   return (
     <div className="my-10">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 border px-5 py-7 rounded-xl">

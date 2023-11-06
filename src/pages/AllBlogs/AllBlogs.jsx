@@ -28,14 +28,17 @@ const AllBlogs = () => {
   } = useQuery({
     queryKey: ["allblogs"],
     queryFn: () => {
-      return axios.get("http://localhost:5000/v1/all-blogs");
+      return axios.get(
+        `http://localhost:5000/v1/all-blogs?sortDate=currentTime&sortOrder=desc&category=${searchCategory}`
+      );
     },
   });
-  // console.log(blogsData);
+
   // console.log(data?.data);
   if (blogsPending) {
     return <SkeletonLoading></SkeletonLoading>;
   }
+  console.log(blogsData.data);
   // if (blogsError) {
   //   return <p>data not found</p>;
   // }
