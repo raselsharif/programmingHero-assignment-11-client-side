@@ -3,18 +3,21 @@ import logo from "/logo.png";
 import { Link, NavLink } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../Providers/AuthProviders";
+import toast from "react-hot-toast";
 
 const NavBar = () => {
   const { user, firebaseLogOut } = useContext(AuthContext);
-  console.log(user);
+  // console.log(user);
   const logOut = () => {
+    const toastId = toast.loading("Signing out....");
     console.log("logout");
     firebaseLogOut()
       .then(() => {
-        alert("sign out successfully");
+        toast.success("Sign out successfully!", { id: toastId });
       })
       .catch((err) => {
         console.log(err);
+        toast.error("Not sign out!", { id: toastId });
       });
   };
   const menus = (

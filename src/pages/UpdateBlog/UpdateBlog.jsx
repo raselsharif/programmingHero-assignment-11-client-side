@@ -1,4 +1,11 @@
-import { Button, Card, Label, Select, TextInput } from "flowbite-react";
+import {
+  Button,
+  Card,
+  Label,
+  Select,
+  TextInput,
+  Textarea,
+} from "flowbite-react";
 import { useContext } from "react";
 import { useLoaderData } from "react-router";
 import { AuthContext } from "../../Providers/AuthProviders";
@@ -17,9 +24,8 @@ const UpdateBlog = () => {
   const todayDate = `${day}-${month}-${year}`;
   const { user } = useContext(AuthContext);
   const loadedBlog = useLoaderData();
-  console.log(loadedBlog);
-  const { title, _id, short_desc, category, long_desc, image, user_email } =
-    loadedBlog;
+  // console.log(loadedBlog);
+  const { title, _id, short_desc, category, long_desc, image } = loadedBlog;
   const formHandler = (e) => {
     e.preventDefault();
     const blogInfo = {
@@ -29,8 +35,7 @@ const UpdateBlog = () => {
       category: e.target.category.value,
       image: e.target.image.value,
       user_email: user?.email,
-      currentTime,
-      todayDate,
+      last_updated: todayDate,
       user_img: user.photoURL,
       user_name: user.displayName,
     };
@@ -88,7 +93,8 @@ const UpdateBlog = () => {
               <div className="mb-2 block">
                 <Label value="Description" />
               </div>
-              <TextInput
+              <Textarea
+                rows={10}
                 defaultValue={long_desc}
                 name="long_desc"
                 type="text"

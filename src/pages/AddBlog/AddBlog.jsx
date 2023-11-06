@@ -1,9 +1,17 @@
 import axios from "axios";
-import { Button, Card, Label, Select, TextInput } from "flowbite-react";
+import {
+  Button,
+  Card,
+  Label,
+  Select,
+  TextInput,
+  Textarea,
+} from "flowbite-react";
 import useCategoriesApi from "../../hooks/useCategoriesApi";
 import SkeletonLoading from "../Loadings/SkeletonLoading";
 import { useContext } from "react";
 import { AuthContext } from "../../Providers/AuthProviders";
+import toast from "react-hot-toast";
 
 const AddBlog = () => {
   const { user } = useContext(AuthContext);
@@ -32,10 +40,18 @@ const AddBlog = () => {
       user_img: user.photoURL,
       user_name: user.displayName,
     };
+    const toastId = toast.loading("Blog adding...");
     console.log(blogInfo);
-    axios.post("http://localhost:5000/v1/post-blog", blogInfo).then((res) => {
-      console.log(res.data);
-    });
+    axios
+      .post("http://localhost:5000/v1/post-blog", blogInfo)
+      .then((res) => {
+        // console.log(res.data);
+        toast.success("Blog added successfully!", { id: toastId });
+        e.target.reset();
+      })
+      .catch((err) => {
+        toast.error("Blog not added!", { id: toastId });
+      });
   };
   if (isPending) {
     return <SkeletonLoading />;
@@ -59,7 +75,7 @@ const AddBlog = () => {
                 name="title"
                 type="text"
                 placeholder="Write Title..."
-                //   required
+                required
               />
             </div>
             <div>
@@ -70,18 +86,19 @@ const AddBlog = () => {
                 name="short_desc"
                 type="text"
                 placeholder="Write Short description.."
-                //  required
+                required
               />
             </div>
             <div>
               <div className="mb-2 block">
                 <Label value="Description" />
               </div>
-              <TextInput
+              <Textarea
+                rows={10}
                 name="long_desc"
                 type="text"
                 placeholder="Write description.."
-                //  required
+                required
               />
             </div>
             <div className="max-w-md">

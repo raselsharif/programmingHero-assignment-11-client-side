@@ -59,10 +59,10 @@ const BlogDetails = () => {
   console.log(data?.data);
   return (
     <div className="my-10">
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 border p-4 rounded-xl">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 border px-5 py-7 rounded-xl">
         <div>
           <img
-            className="rounded-lg"
+            className="rounded-lg w-full"
             src={image ? image : img}
             alt="blog image"
           />
@@ -71,23 +71,23 @@ const BlogDetails = () => {
           <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
             {title}
           </h5>
-          <p className="font-normal text-gray-700 dark:text-gray-400">
+          <p className="my-4 text-[#0e7490]">{category}</p>
+          <p className=" text-gray-700 dark:text-gray-600 font-semibold my-3">
             {short_desc}
           </p>
-          <p className="font-normal text-gray-700 dark:text-gray-400">
+          <p className="font-normal text-gray-700 dark:text-gray-400 text-justify leading-relaxed mb-4">
             {long_desc}
           </p>
-          <p>{category}</p>
           {user?.email == user_email ? (
-            <Link to={`/update-blog/${_id}`}>
+            <Link className="inline-block" to={`/update-blog/${_id}`}>
               <Button>Update</Button>
             </Link>
           ) : (
             ""
           )}
-          <Link to={`/update-blog/${_id}`}>
+          {/* <Link  to={`/update-blog/${_id}`}>
             <Button>Update</Button>
-          </Link>
+          </Link> */}
         </div>
       </div>
 
