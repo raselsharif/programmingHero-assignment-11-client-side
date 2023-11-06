@@ -6,11 +6,8 @@ const BlogCard = ({ blogs }) => {
   const { title, _id, short_desc, category, image } = blogs;
 
   return (
-    <Card
-      className="max-w-sm"
-      imgAlt="Meaningful alt text for an image that is not purely decorative"
-      imgSrc={image ? image : img}
-    >
+    <Card className="max-w-full">
+      <img className="h-48 w-full" src={image ? image : img} alt="blog image" />
       <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
         {title}
       </h5>

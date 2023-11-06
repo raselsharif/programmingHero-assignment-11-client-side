@@ -5,7 +5,7 @@ import banner03 from "/banner03.jpg";
 
 const Banner = () => {
   return (
-    <div className="h-56 sm:h-64 xl:h-[500px]">
+    <div className="h-56 sm:h-64 xl:h-[500px] mt-3">
       <Carousel pauseOnHover>
         <img src={banner01} alt="..." />
         <img src={banner02} alt="..." />

@@ -3,7 +3,7 @@ import img from "/banner01.jpg";
 import BlogComments from "./BlogComments";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { useLoaderData } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
 import toast from "react-hot-toast";
 import { useContext } from "react";
 import { AuthContext } from "../../Providers/AuthProviders";
@@ -78,6 +78,16 @@ const BlogDetails = () => {
             {long_desc}
           </p>
           <p>{category}</p>
+          {user?.email == user_email ? (
+            <Link to={`/update-blog/${_id}`}>
+              <Button>Update</Button>
+            </Link>
+          ) : (
+            ""
+          )}
+          <Link to={`/update-blog/${_id}`}>
+            <Button>Update</Button>
+          </Link>
         </div>
       </div>
 
