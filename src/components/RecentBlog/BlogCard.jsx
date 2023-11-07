@@ -5,8 +5,9 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { useContext } from "react";
 import { AuthContext } from "../../Providers/AuthProviders";
+import { PhotoProvider, PhotoView } from "react-photo-view";
 
-const BlogCard = ({ blogs }) => {
+const BlogCard = ({ blogs, index }) => {
   const { user } = useContext(AuthContext);
   const { title, _id, short_desc, category, image } = blogs;
   const handleWishlist = () => {
@@ -33,11 +34,15 @@ const BlogCard = ({ blogs }) => {
   };
   return (
     <div className="max-w-full flex flex-col shadow-sm shadow-[#0E7490] pb-6 rounded-xl">
-      <img
-        className="h-52 w-full rounded-t-xl mb-3"
-        src={image ? image : img}
-        alt="blog image"
-      />
+      <PhotoProvider>
+        <PhotoView key={index} src={image ? image : img}>
+          <img
+            className="h-52 w-full rounded-t-xl mb-3 cursor-pointer"
+            src={image ? image : img}
+            alt="blog image"
+          />
+        </PhotoView>
+      </PhotoProvider>
       <div className="px-4 space-y-3 mb-2">
         <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
           {title}

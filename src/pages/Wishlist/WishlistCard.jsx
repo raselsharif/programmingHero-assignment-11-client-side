@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import img from "/banner01.jpg";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { PhotoProvider, PhotoView } from "react-photo-view";
 
 const WishlistCard = ({ wishlist, refetch }) => {
   const { title, _id, short_desc, category, image, id } = wishlist;
@@ -20,11 +21,15 @@ const WishlistCard = ({ wishlist, refetch }) => {
   };
   return (
     <div className="max-w-full flex flex-col shadow-sm shadow-[#0E7490] pb-6 rounded-xl">
-      <img
-        className="h-52 w-full rounded-t-xl mb-3"
-        src={image ? image : img}
-        alt="blog image"
-      />
+      <PhotoProvider>
+        <PhotoView src={image ? image : img}>
+          <img
+            className="h-52 w-full rounded-t-xl mb-3 cursor-pointer"
+            src={image ? image : img}
+            alt="blog image"
+          />
+        </PhotoView>
+      </PhotoProvider>
       <div className="px-4 space-y-3 mb-2">
         <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
           {title}

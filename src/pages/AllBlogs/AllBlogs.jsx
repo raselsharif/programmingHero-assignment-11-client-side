@@ -89,8 +89,8 @@ const AllBlogs = () => {
         </h3>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-10">
-          {blogs?.data?.map((blog) => (
-            <AllBlogCard key={blog._id} blog={blog}></AllBlogCard>
+          {blogs?.data?.map((blog, index) => (
+            <AllBlogCard key={blog._id} blog={blog} index={index}></AllBlogCard>
           ))}
         </div>
       )}

@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { AuthContext } from "../../Providers/AuthProviders";
 import toast from "react-hot-toast";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import { TfiBackLeft } from "react-icons/Tfi";
+import { TfiBackLeft } from "react-icons/tfi";
 
 const Register = () => {
   const { emailPassResister } = useContext(AuthContext);

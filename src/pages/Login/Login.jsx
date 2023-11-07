@@ -5,7 +5,7 @@ import { AuthContext } from "../../Providers/AuthProviders";
 import { FcGoogle } from "react-icons/fc";
 import { toast } from "react-hot-toast";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import { TfiBackLeft } from "react-icons/Tfi";
+import { TfiBackLeft } from "react-icons/tfi";
 
 const Login = () => {
   const [show, setShow] = useState(false);
