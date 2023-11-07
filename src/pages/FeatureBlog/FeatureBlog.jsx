@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import DataTable from "react-data-table-component";
 import SkeletonLoading from "../Loadings/SkeletonLoading";
+import { StyleSheetManager } from "styled-components";
 
 const FeatureBlog = () => {
   const { isPending, error, data } = useQuery({
@@ -14,7 +15,12 @@ const FeatureBlog = () => {
   if (isPending) {
     return <SkeletonLoading />;
   }
-  console.log(data?.data);
+  // console.log(data?.data);
+  const filterData = data?.data.sort(
+    (a, b) => b.long_desc.length - a.long_desc.length
+  );
+  const topTen = filterData.slice(0, 10);
+  console.log(topTen);
   const customStyles = {
     headCells: {
       style: {
@@ -42,6 +48,11 @@ const FeatureBlog = () => {
       name: "Title",
       selector: (row) => row.title,
     },
+
+    {
+      name: "Long Desc Length",
+      selector: (row) => row.long_desc.length,
+    },
     {
       name: "Owner",
       selector: (row) => row.user_name,
@@ -53,14 +64,18 @@ const FeatureBlog = () => {
       ),
     },
   ];
-  const loadedData = [...data?.data];
+  const loadedData = [...topTen];
   return (
     <div className="my-10 border">
-      <DataTable
-        columns={columns}
-        data={loadedData}
-        customStyles={customStyles}
-      />
+      <StyleSheetManager
+        shouldForwardProp={(prop) => !prop.startsWith("sortActive")}
+      >
+        <DataTable
+          columns={columns}
+          data={loadedData}
+          customStyles={customStyles}
+        />
+      </StyleSheetManager>
     </div>
   );
 };

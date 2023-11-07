@@ -17,12 +17,7 @@ const Wishlist = () => {
     queryKey: ["wishlist-by-user"],
     queryFn: getWishlist,
   });
-  // if (isFetching) {
-  //   return <p>data fetching... Pls! wait..</p>;
-  // }
-  // if (isLoading) {
-  //   return <SkeletonLoading />;
-  // }
+
   if (isError) {
     return <p>data not found</p>;
   }
@@ -41,7 +36,7 @@ const Wishlist = () => {
       ) : isLoading ? (
         <SkeletonLoading />
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mb-10 gap-4">
           {data?.data.map((wishlist) => (
             <WishlistCard
               key={wishlist._id}

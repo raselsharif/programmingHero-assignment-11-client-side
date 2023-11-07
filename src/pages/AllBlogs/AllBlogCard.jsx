@@ -6,14 +6,14 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { useContext } from "react";
 import { AuthContext } from "../../Providers/AuthProviders";
-import { PhotoProvider, PhotoSlider, PhotoView } from "react-photo-view";
+import { PhotoProvider, PhotoView } from "react-photo-view";
 
 const AllBlogCard = ({ blog, index }) => {
   const { user } = useContext(AuthContext);
 
   const { title, _id, short_desc, category, image } = blog;
   const handleWishlist = () => {
-    console.log("wishlist");
+    // console.log("wishlist");
     const wishlistBlog = {
       title,
       id: _id,
@@ -22,15 +22,15 @@ const AllBlogCard = ({ blog, index }) => {
       category,
       user_email: user.email,
     };
-    console.log(wishlistBlog);
+    // console.log(wishlistBlog);
     axios
       .post("http://localhost:5000/v1/post-wishlist", wishlistBlog)
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         toast.success("Wishlist Added Successfully!");
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
         toast.error("Wishlist not added!");
       });
   };

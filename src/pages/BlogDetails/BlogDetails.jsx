@@ -2,13 +2,14 @@ import { Button, Label, Textarea } from "flowbite-react";
 import img from "/banner01.jpg";
 import BlogComments from "./BlogComments";
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 import { Link, useLoaderData } from "react-router-dom";
 import toast from "react-hot-toast";
 import { useContext } from "react";
 import { AuthContext } from "../../Providers/AuthProviders";
 import SkeletonLoading from "../Loadings/SkeletonLoading";
+import useAxios from "../../hooks/useAxios";
 const BlogDetails = () => {
+  const axios = useAxios();
   const { user } = useContext(AuthContext);
   const loadedBlog = useLoaderData();
   // console.log(loadedBlog);
@@ -16,7 +17,7 @@ const BlogDetails = () => {
     loadedBlog;
   const commentHandler = (e) => {
     e.preventDefault();
-    console.log(e.target.comment.value);
+    // console.log(e.target.comment.value);
     const comment = {
       comment: e.target.comment.value,
       id: _id,
@@ -25,36 +26,37 @@ const BlogDetails = () => {
       user_email: user?.email,
     };
     const toastId = toast.loading("Commenting....");
+
     axios
       .post("http://localhost:5000/v1/post-comment", comment)
       .then((res) => {
         // console.log(res);
         toast.success("Comment send successfully!", { id: toastId });
+        e.target.comment.value = "";
       })
       .catch((err) => {
         // console.log(err);
         toast.error("Comment not send!", { id: toastId });
       });
   };
-  const { isPending, error, data } = useQuery({
+
+  // get comments by post id
+  const getComments = async () => {
+    const res = await axios.get(`/comment-by-post/${_id}`);
+    return res;
+  };
+  const { isPending, error, data, refetch, isSuccess } = useQuery({
     queryKey: ["comments", _id],
-    queryFn: async () => {
-      try {
-        const res = await axios.get(
-          `http://localhost:5000/v1/comment-by-post/${_id}`
-        );
-        // console.log(res.data);
-        return res;
-      } catch (err) {
-        // console.log(err);
-      }
-    },
+    queryFn: getComments,
   });
   if (isPending) {
     return <SkeletonLoading />;
   }
   if (error) {
     return <p>Data not found</p>;
+  }
+  if (isSuccess) {
+    refetch();
   }
   // console.log(data?.data);
   return (
