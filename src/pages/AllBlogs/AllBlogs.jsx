@@ -25,7 +25,7 @@ const AllBlogs = () => {
   const axios = useAxios();
   const getBlogs = async () => {
     const res = await axios.get(
-      `/all-blogs?sortDate=currentTime&sortOrder=desc&category=${searchCategory}`
+      `/all-blogs?sortDate=currentTime&sortOrder=desc&category=${searchCategory}&sortTitle=${searchTitle}`
     );
     return res;
   };
@@ -36,14 +36,14 @@ const AllBlogs = () => {
     error: blogError,
     data: blogs,
   } = useQuery({
-    queryKey: ["allblogs", searchCategory],
+    queryKey: ["allblogs", searchCategory, searchTitle],
     queryFn: getBlogs,
   });
 
   // console.log(data?.data);
-  if (isError) {
-    return <p>data not loaded</p>;
-  }
+  // if (isError) {
+  //   return <p>data not loaded</p>;
+  // }
   // console.log(blogs?.data);
   return (
     <div>
@@ -79,6 +79,14 @@ const AllBlogs = () => {
             This category has no data!
           </h3>
         )
+      ) : isFetching ? (
+        <h3 className="text-3xl py-9 w-full flex items-center justify-center font-semibold text-gray-400 min-h-[500px]">
+          Try to fetching data....
+        </h3>
+      ) : isError ? (
+        <h3 className="text-3xl py-9 w-full flex items-center justify-center font-semibold text-gray-400 min-h-[500px]">
+          Data not fetched!
+        </h3>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-10">
           {blogs?.data?.map((blog) => (

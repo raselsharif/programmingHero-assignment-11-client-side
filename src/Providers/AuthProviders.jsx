@@ -8,6 +8,7 @@ import {
 } from "firebase/auth";
 import { createContext, useEffect, useState } from "react";
 import auth from "../configs/firebase.config";
+import axios from "axios";
 
 export const AuthContext = createContext(null);
 const AuthProviders = ({ children }) => {
