@@ -1,23 +1,25 @@
 import { useQuery } from "@tanstack/react-query";
 import BlogCard from "./BlogCard";
-import axios from "axios";
 import SkeletonLoading from "../../pages/Loadings/SkeletonLoading";
+import useAxios from "../../hooks/useAxios";
 
 const RecentBlog = () => {
+  const axios = useAxios();
+  const getRecentBlogs = async () => {
+    const res = await axios.get(
+      "/all-blogs?sortDate=currentTime&sortOrder=desc&limit=6"
+    );
+    return res;
+    // console.log(res.data);
+  };
   const { isPending, error, data } = useQuery({
     queryKey: ["recent-blog"],
-    queryFn: async () => {
-      const res = await axios.get(
-        "http://localhost:5000/v1/all-blogs?sortDate=currentTime&sortOrder=desc&limit=6"
-      );
-      return res;
-      // console.log(res.data);
-    },
+    queryFn: getRecentBlogs,
   });
   if (isPending) {
     return <SkeletonLoading></SkeletonLoading>;
   }
-  console.log(data.data);
+  console.log(data?.data);
   return (
     <div className="my-10">
       <h2 className="text-center border-b-2 pb-2 text-3xl">Recent Blogs</h2>

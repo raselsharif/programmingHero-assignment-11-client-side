@@ -41,7 +41,7 @@ const UpdateBlog = () => {
     };
     console.log(blogInfo);
     axios
-      .put(`http://localhost:5000/v1/blog-update/${_id}`, blogInfo)
+      .put(`https://blog-server-beige.vercel.app/blog-update/${_id}`, blogInfo)
       .then((res) => {
         console.log(res.data);
         toast.success("Blog Updated Successfully!");

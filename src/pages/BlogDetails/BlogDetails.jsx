@@ -28,7 +28,7 @@ const BlogDetails = () => {
     const toastId = toast.loading("Commenting....");
 
     axios
-      .post("http://localhost:5000/v1/post-comment", comment)
+      .post("https://blog-server-beige.vercel.app/v1/post-comment", comment)
       .then((res) => {
         // console.log(res);
         toast.success("Comment send successfully!", { id: toastId });

@@ -6,7 +6,7 @@ const useCategoriesApi = () => {
   const { isPending, error, data } = useQuery({
     queryKey: ["categoryAPI"],
     queryFn: () => {
-      return axios.get("http://localhost:5000/v1/categories");
+      return axios.get("https://blog-server-beige.vercel.app/v1/categories");
     },
   });
   if (isPending) {

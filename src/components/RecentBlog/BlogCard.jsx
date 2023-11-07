@@ -22,7 +22,7 @@ const BlogCard = ({ blogs, index }) => {
     };
     console.log(wishlistBlog);
     axios
-      .post("http://localhost:5000/v1/post-wishlist", wishlistBlog)
+      .post("https://blog-server-beige.vercel.app/post-wishlist", wishlistBlog)
       .then((res) => {
         // console.log(res.data);
         toast.success("Wishlist Added Successfully!");

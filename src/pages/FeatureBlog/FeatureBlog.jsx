@@ -1,16 +1,18 @@
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 import DataTable from "react-data-table-component";
 import SkeletonLoading from "../Loadings/SkeletonLoading";
 import { StyleSheetManager } from "styled-components";
+import useAxios from "../../hooks/useAxios";
 
 const FeatureBlog = () => {
+  const axios = useAxios();
+  const getFeatures = async () => {
+    const res = await axios.get("/top-ten-features");
+    return res;
+  };
   const { isPending, error, data } = useQuery({
     queryKey: ["top-ten-post"],
-    queryFn: async () => {
-      const res = await axios.get("http://localhost:5000/v1/top-ten-features");
-      return res;
-    },
+    queryFn: getFeatures,
   });
   if (isPending) {
     return <SkeletonLoading />;
@@ -19,7 +21,7 @@ const FeatureBlog = () => {
   const filterData = data?.data.sort(
     (a, b) => b.long_desc.length - a.long_desc.length
   );
-  const topTen = filterData.slice(0, 10);
+  const topTen = filterData?.slice(0, 10);
   console.log(topTen);
   const customStyles = {
     headCells: {

@@ -10,7 +10,7 @@ const WishlistCard = ({ wishlist, refetch }) => {
   const deleteWishlist = (id) => {
     // console.log(id);
     axios
-      .delete(`http://localhost:5000/v1/wishlist-delete/${id}`)
+      .delete(`https://blog-server-beige.vercel.app/wishlist-delete/${id}`)
       .then((res) => {
         toast.success("Deleted Successfully!");
         refetch();

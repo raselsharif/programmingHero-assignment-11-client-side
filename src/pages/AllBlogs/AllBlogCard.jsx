@@ -24,7 +24,7 @@ const AllBlogCard = ({ blog, index }) => {
     };
     // console.log(wishlistBlog);
     axios
-      .post("http://localhost:5000/v1/post-wishlist", wishlistBlog)
+      .post("https://blog-server-beige.vercel.app/post-wishlist", wishlistBlog)
       .then((res) => {
         // console.log(res.data);
         toast.success("Wishlist Added Successfully!");
@@ -36,7 +36,7 @@ const AllBlogCard = ({ blog, index }) => {
   };
   // const handleDelete = (id) => {
   //   axios
-  //     .delete(`http://localhost:5000/v1/blog-delete/${id}`)
+  //     .delete(`https://blog-server-beige.vercel.app/blog-delete/${id}`)
   //     .then((res) => {
   //       console.log(res);
   //       toast.success("Blog deleted Successfully!");

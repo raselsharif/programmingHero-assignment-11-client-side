@@ -43,7 +43,7 @@ const AddBlog = () => {
     const toastId = toast.loading("Blog adding...");
     console.log(blogInfo);
     axios
-      .post("http://localhost:5000/v1/post-blog", blogInfo)
+      .post("https://blog-server-beige.vercel.app/post-blog", blogInfo)
       .then((res) => {
         // console.log(res.data);
         toast.success("Blog added successfully!", { id: toastId });
