@@ -1,12 +1,13 @@
 import { Avatar, Button, Dropdown, Navbar } from "flowbite-react";
 import logo from "/logo.png";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, Navigate, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../Providers/AuthProviders";
 import toast from "react-hot-toast";
 
 const NavBar = () => {
   const { user, firebaseLogOut } = useContext(AuthContext);
+  const goTo = useNavigate();
   // console.log(user);
   const logOut = () => {
     const toastId = toast.loading("Signing out....");
@@ -14,6 +15,7 @@ const NavBar = () => {
     firebaseLogOut()
       .then(() => {
         toast.success("Sign out successfully!", { id: toastId });
+        goTo("/");
       })
       .catch((err) => {
         console.log(err);

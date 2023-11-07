@@ -7,11 +7,9 @@ import toast from "react-hot-toast";
 import { useContext } from "react";
 import { AuthContext } from "../../Providers/AuthProviders";
 
-const AllBlogCard = ({ blog, blogsPending }) => {
+const AllBlogCard = ({ blog }) => {
   const { user } = useContext(AuthContext);
-  if (blogsPending) {
-    return <SkeletonLoading />;
-  }
+
   const { title, _id, short_desc, category, image } = blog;
   const handleWishlist = () => {
     console.log("wishlist");

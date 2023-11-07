@@ -5,6 +5,7 @@ import SkeletonLoading from "../Loadings/SkeletonLoading";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useState } from "react";
+import useAxios from "../../hooks/useAxios";
 
 const AllBlogs = () => {
   const [searchCategory, setSearchCategory] = useState("");
@@ -21,34 +22,29 @@ const AllBlogs = () => {
   };
   // all blogs
   const { isPending, error, data } = useCategoriesApi();
+  const axios = useAxios();
+  const getBlogs = async () => {
+    const res = await axios.get(
+      `/all-blogs?sortDate=currentTime&sortOrder=desc&category=${searchCategory}`
+    );
+    return res;
+  };
   const {
-    isPending: blogsPending,
-    error: blogsError,
-    data: blogsData,
+    isFetching,
+    isLoading,
+    isError,
+    error: blogError,
+    data: blogs,
   } = useQuery({
-    queryKey: ["allblogs"],
-    queryFn: () => {
-      return axios.get(
-        `http://localhost:5000/v1/all-blogs?sortDate=currentTime&sortOrder=desc&category=${searchCategory}`
-      );
-    },
+    queryKey: ["allblogs", searchCategory],
+    queryFn: getBlogs,
   });
 
   // console.log(data?.data);
-  if (blogsPending) {
-    return <SkeletonLoading></SkeletonLoading>;
+  if (isError) {
+    return <p>data not loaded</p>;
   }
-  console.log(blogsData.data);
-  // if (blogsError) {
-  //   return <p>data not found</p>;
-  // }
-  // get all categories
-  // if (isPending) {
-  //   return <SkeletonLoading />;
-  // }
-  // if (error) {
-  //   return <p>Data not found</p>;
-  // }
+  // console.log(blogs?.data);
   return (
     <div>
       <h2 className="my-4 text-2xl font-semibold bg-[#155e75] w-full py-4 text-white text-center rounded-lg">
@@ -75,15 +71,21 @@ const AllBlogs = () => {
         </form>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {blogsData?.data?.map((blog) => (
-          <AllBlogCard
-            key={blog._id}
-            blog={blog}
-            blogsPending={blogsPending}
-          ></AllBlogCard>
-        ))}
-      </div>
+      {blogs?.data == 0 ? (
+        isFetching ? (
+          <SkeletonLoading />
+        ) : (
+          <h3 className="text-3xl py-9 w-full flex items-center justify-center font-semibold text-gray-400 min-h-[500px]">
+            This category has no data!
+          </h3>
+        )
+      ) : (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-10">
+          {blogs?.data?.map((blog) => (
+            <AllBlogCard key={blog._id} blog={blog}></AllBlogCard>
+          ))}
+        </div>
+      )}
     </div>
   );
 };

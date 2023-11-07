@@ -4,14 +4,15 @@ import img from "/banner01.jpg";
 import axios from "axios";
 import toast from "react-hot-toast";
 
-const WishlistCard = ({ wishlist }) => {
+const WishlistCard = ({ wishlist, refetch }) => {
   const { title, _id, short_desc, category, image, id } = wishlist;
   const deleteWishlist = (id) => {
-    console.log(id);
+    // console.log(id);
     axios
       .delete(`http://localhost:5000/v1/wishlist-delete/${id}`)
       .then((res) => {
         toast.success("Deleted Successfully!");
+        refetch();
       })
       .catch((err) => {
         toast.error("Not Deleted!");
@@ -35,7 +36,7 @@ const WishlistCard = ({ wishlist }) => {
       <div className="mt-auto px-4">
         <p className="font-semibold mb-3">{category}</p>
         <div className="flex justify-between">
-          <Link to={`/blog-details/${_id}`}>
+          <Link to={`/blog-details/${id}`}>
             <Button>Details</Button>
           </Link>
           <Button onClick={() => deleteWishlist(_id)} color="failure">

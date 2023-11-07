@@ -5,6 +5,7 @@ import { AuthContext } from "../../Providers/AuthProviders";
 import { FcGoogle } from "react-icons/fc";
 import { toast } from "react-hot-toast";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { TfiBackLeft } from "react-icons/Tfi";
 
 const Login = () => {
   const [show, setShow] = useState(false);
@@ -18,12 +19,12 @@ const Login = () => {
     const toastId = toast.loading("Logging..");
     emailPassLogin(email, password)
       .then((res) => {
-        console.log(res.user);
+        // console.log(res.user);
         toast.success("Logged in successfully", { id: toastId });
         goTo("/");
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
         toast.error("Email/Password invalid", { id: toastId });
       });
   };
@@ -48,7 +49,12 @@ const Login = () => {
       <h2 className="my-4 text-2xl font-semibold bg-[#155e75] w-full py-4 text-white text-center rounded-lg">
         Welcome to RS Blog
       </h2>
-      <Card className="w-80 border border-[#155e75]">
+      <Card className="w-80 border border-[#155e75] relative">
+        <div className="absolute top-2 right-0 text-2xl font-extrabold p-3 animate-bounce">
+          <Link to="/">
+            <TfiBackLeft />
+          </Link>
+        </div>
         <h3 className="text-[#155e75] w-full py-2 text-center  font-semibold rounded-lg text-2xl border-b-2">
           Pls! Login
         </h3>
