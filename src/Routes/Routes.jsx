@@ -10,11 +10,13 @@ import BlogDetails from "../pages/BlogDetails/BlogDetails";
 import FeatureBlog from "../pages/FeatureBlog/FeatureBlog";
 import Wishlist from "../pages/Wishlist/Wishlist";
 import PrivateRoute from "./PrivateRoute";
+import ErrorPage from "../pages/ErrorPage/ErrorPage";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <MainLayouts></MainLayouts>,
+    errorElement: <ErrorPage />,
     children: [
       {
         path: "/",
