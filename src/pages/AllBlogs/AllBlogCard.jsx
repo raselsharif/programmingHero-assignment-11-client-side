@@ -13,13 +13,16 @@ const AllBlogCard = ({ blog }) => {
   const { title, _id, short_desc, category, image } = blog;
   const handleWishlist = () => {
     // console.log("wishlist");
+    if (!user?.email) {
+      return toast.error("Wishlist not added. Pls! Login First");
+    }
     const wishlistBlog = {
       title,
       id: _id,
       short_desc,
       image,
       category,
-      user_email: user.email,
+      user_email: user?.email,
     };
     // console.log(wishlistBlog);
     axios

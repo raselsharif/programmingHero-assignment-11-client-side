@@ -13,7 +13,10 @@ const BlogCard = ({ blogs, index }) => {
   const { user } = useContext(AuthContext);
   const { title, _id, short_desc, category, image } = blogs;
   const handleWishlist = () => {
-    console.log("wishlist");
+    // console.log("wishlist");
+    if (!user?.email) {
+      return toast.error("Wishlist not added. Pls! Login First");
+    }
     const wishlistBlog = {
       title,
       id: _id,
@@ -22,7 +25,7 @@ const BlogCard = ({ blogs, index }) => {
       category,
       user_email: user.email,
     };
-    console.log(wishlistBlog);
+    // console.log(wishlistBlog);
     axios
       .post("/post-wishlist", wishlistBlog)
       .then((res) => {

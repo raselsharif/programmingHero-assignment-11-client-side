@@ -34,7 +34,9 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/v1/blog-details/${params.id}`),
+          fetch(
+            `https://blog-server-beige.vercel.app/v1/blog-details/${params.id}`
+          ),
       },
       {
         path: "/all-blogs",
@@ -44,9 +46,12 @@ const router = createBrowserRouter([
         path: "/blog-details/:id",
         element: <BlogDetails></BlogDetails>,
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/v1/blog-details/${params.id}`, {
-            credentials: "include",
-          }),
+          fetch(
+            `https://blog-server-beige.vercel.app/v1/blog-details/${params.id}`,
+            {
+              credentials: "include",
+            }
+          ),
       },
       {
         path: "/features",
