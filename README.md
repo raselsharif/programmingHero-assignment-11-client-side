@@ -1,8 +1,23 @@
-# React + Vite
+# Blog website
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+### This website about tech blog.
 
-Currently, two official plugins are available:
+#### Live link our website
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### Link one
+
+- <a href="https://rasel-blog-web.web.app/" target="_blank">https://rasel-blog-web.web.app/</a>
+
+### Link Two
+
+- <a href="https://b8a11-client-side-raselsharif.vercel.app/" target="_blank">https://b8a11-client-side-raselsharif.vercel.app/</a>
+
+### Features of our website
+
+- Firebase Authentication
+- Two type login system. Email/pass and google login.
+- User can post his/her blog our website
+- User can update own blogs
+- User can save favorites blog to wishlist
+- user can delete letter wishlist
+- Added photo viewer for user better experience.

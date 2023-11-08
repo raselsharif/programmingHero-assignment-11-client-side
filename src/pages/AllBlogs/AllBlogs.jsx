@@ -3,21 +3,24 @@ import AllBlogCard from "./AllBlogCard";
 import useCategoriesApi from "../../hooks/useCategoriesApi";
 import SkeletonLoading from "../Loadings/SkeletonLoading";
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 import { useState } from "react";
 import useAxios from "../../hooks/useAxios";
 
 const AllBlogs = () => {
   const [searchCategory, setSearchCategory] = useState("");
-  const [searchTitle, setSearchTitle] = useState("");
-  console.log(searchTitle);
-  console.log(searchCategory);
+  // console.log(searchCategory);
   const searchByCategory = (e) => {
     // console.log("change selected option");
     setSearchCategory(e.target.value);
   };
+
+  const [searchTitle, setSearchTitle] = useState("");
+  console.log(searchTitle);
+
   const searchByTitle = (e) => {
     e.preventDefault();
+
+    // setSearchTitle(e.target.title.value.toLowerCase());
     setSearchTitle(e.target.title.value);
   };
   // all blogs
@@ -29,6 +32,7 @@ const AllBlogs = () => {
     );
     return res;
   };
+
   const {
     isFetching,
     isLoading,
@@ -39,6 +43,20 @@ const AllBlogs = () => {
     queryKey: ["allblogs", searchCategory, searchTitle],
     queryFn: getBlogs,
   });
+  // const [searchTitle, setSearchTitle] = useState("");
+  // console.log(searchTitle);
+  // const searchByTitle = (e) => {
+  //   e.preventDefault();
+  //   const userInput = e.target.title.value;
+  //   const userInputToLower = userInput.toLowerCase();
+  //   // console.log(userInputToLower);
+  //   // setSearchTitle(e.target.title.value);
+  //   const filterBlog = blogs?.data.filter((item) =>
+  //     item.title.toLowerCase().includes(userInputToLower)
+  //   );
+  //   return filterBlog;
+  // };
+  // console.log(searchTitle);
 
   // console.log(data?.data);
   // if (isError) {
