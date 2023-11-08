@@ -21,7 +21,7 @@ const RecentBlog = () => {
   }
   // console.log(data?.data);
   return (
-    <div className="my-10">
+    <div className="my-10 overflow-hidden">
       <h2 className="text-center border-b-2 pb-2 font-semibold text-3xl text-[#155E75]">
         LATEST BLOGS
       </h2>

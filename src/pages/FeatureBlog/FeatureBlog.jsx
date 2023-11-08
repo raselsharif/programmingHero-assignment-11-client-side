@@ -22,7 +22,7 @@ const FeatureBlog = () => {
     (a, b) => b.long_desc.length - a.long_desc.length
   );
   const topTen = filterData?.slice(0, 10);
-  console.log(topTen);
+  // console.log(topTen);
   const customStyles = {
     headCells: {
       style: {
