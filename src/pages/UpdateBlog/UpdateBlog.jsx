@@ -9,12 +9,15 @@ import {
 import { useContext } from "react";
 import { useLoaderData } from "react-router";
 import { AuthContext } from "../../Providers/AuthProviders";
-import axios from "axios";
 import useCategoriesApi from "../../hooks/useCategoriesApi";
 import SkeletonLoading from "../Loadings/SkeletonLoading";
 import toast from "react-hot-toast";
+import useAxios from "../../hooks/useAxios";
+import { useNavigate } from "react-router-dom";
 
 const UpdateBlog = () => {
+  const goToDetails = useNavigate();
+  const axios = useAxios();
   const { isPending, error, data } = useCategoriesApi();
   const currentTime = Date.now();
   const currentDate = new Date(currentTime);
@@ -39,15 +42,16 @@ const UpdateBlog = () => {
       user_img: user.photoURL,
       user_name: user.displayName,
     };
-    console.log(blogInfo);
+    // console.log(blogInfo);
     axios
-      .put(`https://blog-server-beige.vercel.app/blog-update/${_id}`, blogInfo)
+      .put(`/blog-update/${_id}`, blogInfo)
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         toast.success("Blog Updated Successfully!");
+        goToDetails(`/blog-details/${_id}`);
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
         toast.error("Blog Not Updated!");
       });
   };
@@ -121,7 +125,7 @@ const UpdateBlog = () => {
                 defaultValue={image}
                 name="image"
                 type="text"
-                placeholder={!image && "User not set any image URL"}
+                placeholder="User not set any image URL"
                 //  required
               />
             </div>

@@ -1,4 +1,3 @@
-import axios from "axios";
 import {
   Button,
   Card,
@@ -12,8 +11,10 @@ import SkeletonLoading from "../Loadings/SkeletonLoading";
 import { useContext } from "react";
 import { AuthContext } from "../../Providers/AuthProviders";
 import toast from "react-hot-toast";
+import useAxios from "../../hooks/useAxios";
 
 const AddBlog = () => {
+  const axios = useAxios();
   const { user } = useContext(AuthContext);
   const currentTime = Date.now();
   const currentDate = new Date(currentTime);
@@ -41,9 +42,9 @@ const AddBlog = () => {
       user_name: user.displayName,
     };
     const toastId = toast.loading("Blog adding...");
-    console.log(blogInfo);
+    // console.log(blogInfo);
     axios
-      .post("https://blog-server-beige.vercel.app/post-blog", blogInfo)
+      .post("/post-blog", blogInfo)
       .then((res) => {
         // console.log(res.data);
         toast.success("Blog added successfully!", { id: toastId });

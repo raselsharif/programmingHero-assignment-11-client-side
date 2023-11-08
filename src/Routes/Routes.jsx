@@ -22,11 +22,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/add-blog",
-        element: (
-          <PrivateRoute>
-            <AddBlog></AddBlog>
-          </PrivateRoute>
-        ),
+        element: <AddBlog></AddBlog>,
       },
       {
         path: "/update-blog/:id",
@@ -36,9 +32,7 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(
-            `https://blog-server-beige.vercel.app/v1/blog-details/${params.id}`
-          ),
+          fetch(`http://localhost:5000/v1/blog-details/${params.id}`),
       },
       {
         path: "/all-blogs",
@@ -46,15 +40,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/blog-details/:id",
-        element: (
-          <PrivateRoute>
-            <BlogDetails></BlogDetails>
-          </PrivateRoute>
-        ),
+        element: <BlogDetails></BlogDetails>,
         loader: ({ params }) =>
-          fetch(
-            `https://blog-server-beige.vercel.app/blog-details/${params.id}`
-          ),
+          fetch(`http://localhost:5000/v1/blog-details/${params.id}`, {
+            credentials: "include",
+          }),
       },
       {
         path: "/features",

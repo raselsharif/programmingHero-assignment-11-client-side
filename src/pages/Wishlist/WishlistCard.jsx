@@ -1,16 +1,17 @@
 import { Button, Card } from "flowbite-react";
 import { Link } from "react-router-dom";
 import img from "/banner01.jpg";
-import axios from "axios";
 import toast from "react-hot-toast";
 import { PhotoProvider, PhotoView } from "react-photo-view";
+import useAxios from "../../hooks/useAxios";
 
 const WishlistCard = ({ wishlist, refetch }) => {
+  const axios = useAxios();
   const { title, _id, short_desc, category, image, id } = wishlist;
   const deleteWishlist = (id) => {
     // console.log(id);
     axios
-      .delete(`https://blog-server-beige.vercel.app/wishlist-delete/${id}`)
+      .delete(`/wishlist-delete/${id}`)
       .then((res) => {
         toast.success("Deleted Successfully!");
         refetch();

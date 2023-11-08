@@ -1,16 +1,16 @@
 import { Button } from "flowbite-react";
 import img from "/banner01.jpg";
 import { Link } from "react-router-dom";
-import SkeletonLoading from "../Loadings/SkeletonLoading";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { useContext } from "react";
 import { AuthContext } from "../../Providers/AuthProviders";
 import { PhotoProvider, PhotoView } from "react-photo-view";
+import useAxios from "../../hooks/useAxios";
 
-const AllBlogCard = ({ blog, index }) => {
+const AllBlogCard = ({ blog }) => {
   const { user } = useContext(AuthContext);
-
+  const axios = useAxios();
   const { title, _id, short_desc, category, image } = blog;
   const handleWishlist = () => {
     // console.log("wishlist");
@@ -24,7 +24,7 @@ const AllBlogCard = ({ blog, index }) => {
     };
     // console.log(wishlistBlog);
     axios
-      .post("https://blog-server-beige.vercel.app/post-wishlist", wishlistBlog)
+      .post("/post-wishlist", wishlistBlog)
       .then((res) => {
         // console.log(res.data);
         toast.success("Wishlist Added Successfully!");
@@ -36,7 +36,7 @@ const AllBlogCard = ({ blog, index }) => {
   };
   // const handleDelete = (id) => {
   //   axios
-  //     .delete(`https://blog-server-beige.vercel.app/blog-delete/${id}`)
+  //     .delete(`/blog-delete/${id}`)
   //     .then((res) => {
   //       console.log(res);
   //       toast.success("Blog deleted Successfully!");

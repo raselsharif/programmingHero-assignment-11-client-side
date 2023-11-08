@@ -1,13 +1,15 @@
 import { Button } from "flowbite-react";
 import img from "/banner01.jpg";
 import { Link } from "react-router-dom";
-import axios from "axios";
 import toast from "react-hot-toast";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { AuthContext } from "../../Providers/AuthProviders";
 import { PhotoProvider, PhotoView } from "react-photo-view";
+import useAxios from "../../hooks/useAxios";
+import { motion } from "framer-motion";
 
 const BlogCard = ({ blogs, index }) => {
+  const axios = useAxios();
   const { user } = useContext(AuthContext);
   const { title, _id, short_desc, category, image } = blogs;
   const handleWishlist = () => {
@@ -22,7 +24,7 @@ const BlogCard = ({ blogs, index }) => {
     };
     console.log(wishlistBlog);
     axios
-      .post("https://blog-server-beige.vercel.app/post-wishlist", wishlistBlog)
+      .post("/post-wishlist", wishlistBlog)
       .then((res) => {
         // console.log(res.data);
         toast.success("Wishlist Added Successfully!");
@@ -32,17 +34,20 @@ const BlogCard = ({ blogs, index }) => {
         toast.error("Wishlist not added!");
       });
   };
+
   return (
     <div className="max-w-full flex flex-col shadow-sm shadow-[#0E7490] pb-6 rounded-xl">
-      <PhotoProvider>
-        <PhotoView key={index} src={image ? image : img}>
-          <img
-            className="h-52 w-full rounded-t-xl mb-3 cursor-pointer"
-            src={image ? image : img}
-            alt="blog image"
-          />
-        </PhotoView>
-      </PhotoProvider>
+      <motion.div>
+        <PhotoProvider>
+          <PhotoView key={index} src={image ? image : img}>
+            <img
+              className="h-52 w-full rounded-t-xl mb-3 cursor-pointer"
+              src={image ? image : img}
+              alt="blog image"
+            />
+          </PhotoView>
+        </PhotoProvider>
+      </motion.div>
       <div className="px-4 space-y-3 mb-2">
         <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
           {title}

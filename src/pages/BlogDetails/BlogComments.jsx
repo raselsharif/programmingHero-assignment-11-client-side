@@ -1,4 +1,6 @@
+import { useContext } from "react";
 import profile from "/profile.jpg";
+import { AuthContext } from "../../Providers/AuthProviders";
 
 const BlogComments = ({ comment }) => {
   const { user_name, comment: user_comment, user_img } = comment;
@@ -10,7 +12,9 @@ const BlogComments = ({ comment }) => {
         className="h-12 w-12 rounded-full border border-[#155e75]"
       />
       <div className="">
-        <p className="font-semibold text-lg">{user_name}</p>
+        <p className="font-semibold text-lg">
+          {user_name ? user_name : "Anonymous User"}
+        </p>
         <p>{user_comment}</p>
       </div>
     </div>

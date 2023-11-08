@@ -1,13 +1,15 @@
 import { Button, Card, Label, TextInput } from "flowbite-react";
 import { useContext, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Providers/AuthProviders";
 import toast from "react-hot-toast";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { TfiBackLeft } from "react-icons/tfi";
 
 const Register = () => {
-  const { emailPassResister } = useContext(AuthContext);
+  const goToLogin = useNavigate();
+  const { emailPassResister, updateUser, firebaseLogOut } =
+    useContext(AuthContext);
   const [show, setShow] = useState(false);
   const handleRegister = (e) => {
     e.preventDefault();
@@ -22,7 +24,7 @@ const Register = () => {
     const passValid =
       /^(?=.*[A-Z])(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-])(?=.*\d).{6,}$/;
     if (!passValid.test(password)) {
-      toast.error(
+      return toast.error(
         "Your Password at least 6 character, one upper case, a special character and number"
       );
     }
@@ -30,12 +32,23 @@ const Register = () => {
 
     emailPassResister(email, password)
       .then((res) => {
-        console.log(res.user);
-        toast.success("User Created Successfully!", { id: toastId });
+        // console.log(res.user);
+        if (res) {
+          updateUser(name, image)
+            .then((res) => {
+              toast.success("User Created Successfully!", { id: toastId });
+              firebaseLogOut();
+              goToLogin("/login");
+            })
+            .catch((err) => {
+              toast.error("Did something wrong!", { id: toastId });
+            });
+        }
       })
       .catch((err) => {
-        console.log(err);
-        toast.error("Did something wrong!", { id: toastId });
+        // console.log(err);
+        const error = err;
+        toast.error(`${error}`, { id: toastId });
       });
   };
   return (

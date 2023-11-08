@@ -1,12 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 import SkeletonLoading from "../pages/Loadings/SkeletonLoading";
+import useAxios from "./useAxios";
 
 const useCategoriesApi = () => {
+  const axios = useAxios();
   const { isPending, error, data } = useQuery({
     queryKey: ["categoryAPI"],
     queryFn: () => {
-      return axios.get("https://blog-server-beige.vercel.app/v1/categories");
+      return axios.get("/categories");
     },
   });
   if (isPending) {
