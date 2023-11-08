@@ -75,7 +75,7 @@ const NavBar = () => {
             RS Tech
           </span>
         </Link>
-        <div className="flex md:order-2">
+        <div className="flex ml-auto md:ml-0 md:order-2">
           {user ? (
             <>
               <Dropdown
@@ -108,7 +108,7 @@ const NavBar = () => {
             </Link>
           )}
         </div>
-        <Navbar.Toggle />
+        <Navbar.Toggle className="ml-3" />
         <Navbar.Collapse>{menus}</Navbar.Collapse>
       </Navbar>
     </div>

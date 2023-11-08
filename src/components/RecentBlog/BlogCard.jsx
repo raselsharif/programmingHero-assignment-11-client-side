@@ -1,5 +1,5 @@
 import { Button } from "flowbite-react";
-import img from "/banner01.jpg";
+import img from "/blog-placeholder.jpg";
 import { Link } from "react-router-dom";
 import toast from "react-hot-toast";
 import { useContext, useEffect } from "react";

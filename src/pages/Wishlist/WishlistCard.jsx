@@ -1,6 +1,6 @@
-import { Button, Card } from "flowbite-react";
+import { Button } from "flowbite-react";
 import { Link } from "react-router-dom";
-import img from "/banner01.jpg";
+import img from "/blog-placeholder.jpg";
 import toast from "react-hot-toast";
 import { PhotoProvider, PhotoView } from "react-photo-view";
 import useAxios from "../../hooks/useAxios";

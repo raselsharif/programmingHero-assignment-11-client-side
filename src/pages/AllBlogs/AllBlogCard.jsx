@@ -1,7 +1,6 @@
 import { Button } from "flowbite-react";
-import img from "/banner01.jpg";
+import img from "/blog-placeholder.jpg";
 import { Link } from "react-router-dom";
-import axios from "axios";
 import toast from "react-hot-toast";
 import { useContext } from "react";
 import { AuthContext } from "../../Providers/AuthProviders";
